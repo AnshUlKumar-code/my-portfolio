@@ -1,0 +1,234 @@
+.products {
+  background: var(--secondary-bg);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.card.featured {
+  border-color: var(--accent-color);
+  grid-column: span 2;
+}
+
+.badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--gradient-1);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.image {
+  height: 220px;
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%);
+}
+
+.placeholder {
+  font-size: 5rem;
+  color: rgba(255, 255, 255, 0.3);
+  z-index: 1;
+}
+
+.platform {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+.rating {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fbbf24;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  backdrop-filter: blur(10px);
+}
+
+.star {
+  fill: #fbbf24;
+}
+
+.content {
+  padding: 1.8rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.category {
+  font-size: 0.8rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  color: var(--text-primary);
+}
+
+.description {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+  flex: 1;
+}
+
+.tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tag {
+  padding: 5px 12px;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 15px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+}
+
+.primary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--gradient-1);
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  flex: 1;
+  justify-content: center;
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+}
+
+.secondary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.secondary:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.seeMore {
+  text-align: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 16px 40px;
+  background: var(--gradient-1);
+  color: white;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
+}
+
+@media (max-width: 968px) {
+  .card.featured {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .links {
+    flex-direction: column;
+  }
+}

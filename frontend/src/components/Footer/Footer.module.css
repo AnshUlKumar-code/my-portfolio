@@ -1,0 +1,145 @@
+.footer {
+  background: var(--primary-bg);
+  border-top: 1px solid var(--border-color);
+  padding: 4rem 0 2rem;
+  position: relative;
+}
+
+.content {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.brand {
+  font-size: 2rem;
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 1rem;
+}
+
+.bracket {
+  color: var(--accent-color);
+}
+
+.accent {
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tagline {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.links a:hover {
+  color: var(--accent-color);
+}
+
+.links a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-1);
+  transition: width 0.3s ease;
+}
+
+.links a:hover::after {
+  width: 100%;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.copyright {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.madeWith {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.heart {
+  color: #ef4444;
+  fill: #ef4444;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.scrollTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--gradient-1);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  box-shadow: 0 5px 20px rgba(99, 102, 241, 0.4);
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.scrollTop:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.5);
+}
+
+@media (max-width: 768px) {
+  .bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .scrollTop {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+  }
+}

@@ -1,0 +1,23 @@
+.app {
+  min-height: 100vh;
+  background-color: var(--primary-bg);
+}
+
+main {
+  padding-top: 80px;
+}
+
+section {
+  padding: 100px 0;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 60px 0;
+  }
+  
+  main {
+    padding-top: 70px;
+  }
+}
