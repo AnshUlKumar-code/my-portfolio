@@ -1,14 +1,11 @@
 import mongoose from "mongoose";
 
 const contactSchema=new mongoose.Schema({
-     name: String,        
+  name: String,        
   email: String,       
   subject: String,
   message: String,
-  status: String,      
-  ipAddress: String,   
-  userAgent: String,
-  createdAt: Date
+  createdAt: { type: Date, default: Date.now }
 })
 
 export default mongoose.model("Contact",contactSchema);

@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const profileSchema=new Schema({
@@ -9,7 +10,8 @@ const profileSchema=new Schema({
   location: String,       
   photo: String,          
   resume: {
-    url: String,          
+    url: String,  
+    public_id: String,        
     filename: String,     
     updatedAt: Date
   },

@@ -8,12 +8,12 @@ import authMiddleware from "../middleware/authMiddleware.js";
 
 const skillsRouter=Router();
 
-skillsRouter.use(authMiddleware)
+
 
 
 skillsRouter.get("/",getSkillsController)
-skillsRouter.post("/",createSkillController)
-skillsRouter.put("/:id",updateSkillController)
+skillsRouter.post("/",authMiddleware,createSkillController)
+skillsRouter.put("/:id",authMiddleware,updateSkillController)
 skillsRouter.delete("/:id",deleteSkillController)
 
 export {skillsRouter}

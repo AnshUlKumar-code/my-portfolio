@@ -10,13 +10,12 @@ import { getSingleProjectController } from "../controllers/projectController.js"
 
 const projectsRouter=express.Router();
 
-projectsRouter.use(authMiddleware)
 
 projectsRouter.get("/",getProjectsController)
 projectsRouter.get("/:id", getSingleProjectController)
-projectsRouter.post("/", createProjectController)
-projectsRouter.put("/:id", updateProjectController)
-projectsRouter.delete("/:id", deleteProjectController)
+projectsRouter.post("/",authMiddleware, createProjectController)
+projectsRouter.put("/:id",authMiddleware, updateProjectController)
+projectsRouter.delete("/:id",authMiddleware, deleteProjectController)
 
 
 
