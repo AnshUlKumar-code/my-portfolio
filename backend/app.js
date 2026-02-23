@@ -6,7 +6,6 @@ import { configDotenv } from "dotenv";
 import connectDB from "./config/mongoDB.js";
 import {authRouter} from "./routes/auth.js";
 import {projectsRouter} from "./routes/project.js"
-import connectCloudinary from "./config/cloudinary.js";
 import { skillsRouter } from "./routes/skill.js";
 import { profileRouter } from "./routes/profile.js";
 import contactRouter from "./routes/contact.js";
@@ -31,7 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use(cors({
-  origin: [process.env.FRONTEND_URL ||  'https://my-portfolio-nine-xi-78.vercel.app'],
+  origin:  'https://my-portfolio-nine-xi-78.vercel.app',
   credentials: true
 }))
 
