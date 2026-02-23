@@ -3,6 +3,7 @@ import profileModel from '../model/Profile.js'
 import fs from 'fs'
 import path from 'path'
 import { z } from 'zod'
+import cloudinary from '../config/cloudinary.js'
 
 const profileSchema = z.object({
   name: z.string().min(1),
@@ -29,17 +30,42 @@ export const addProfile = async (req, res) => {
       social: JSON.parse(social || '{}')
     }
 
+    // if (req.files?.photo?.[0]) {
+    //   profileData.photo = `/uploads/${req.files.photo[0].filename}`
+    // }
     if (req.files?.photo?.[0]) {
-      profileData.photo = `/uploads/${req.files.photo[0].filename}`
-    }
+  const result = await cloudinary.uploader.upload(
+    req.files.photo[0].path,
+    { folder: 'portfolio_photos' }
+  );
+  profileData.photo = result.secure_url;
+  fs.unlinkSync(req.files.photo[0].path); // delete local after upload
+}
 
+    // if (req.files?.resume?.[0]) {
+    //   profileData.resume = {
+    //     url: `/uploads/${req.files.resume[0].filename}`,
+    //     filename: req.files.resume[0].originalname,
+    //     updatedAt: new Date()
+    //   }
+    // }
     if (req.files?.resume?.[0]) {
-      profileData.resume = {
-        url: `/uploads/${req.files.resume[0].filename}`,
-        filename: req.files.resume[0].originalname,
-        updatedAt: new Date()
-      }
+  const result = await cloudinary.uploader.upload(
+    req.files.resume[0].path,
+    {
+      folder: 'portfolio_resumes',
+      resource_type: 'raw',
+      access_mode: "public"  ,
+        type: "upload",  // for PDFs
     }
+  );
+  profileData.resume = {
+    url: result.secure_url,
+    filename: req.files.resume[0].originalname,
+    updatedAt: new Date(),
+  };
+  fs.unlinkSync(req.files.resume[0].path); // clean up local file
+}
 
     const profile = new profileModel(profileData)
     await profile.save()
@@ -65,17 +91,43 @@ export const updateProfile = async (req, res) => {
       social: JSON.parse(social || '{}')
     }
 
+    // if (req.files?.photo?.[0]) {
+    //   profileData.photo = `/uploads/${req.files.photo[0].filename}`
+    // }
     if (req.files?.photo?.[0]) {
-      profileData.photo = `/uploads/${req.files.photo[0].filename}`
-    }
+  const result = await cloudinary.uploader.upload(
+    req.files.photo[0].path,
+    { folder: 'portfolio_photos' }
+  );
+  profileData.photo = result.secure_url;
+  fs.unlinkSync(req.files.photo[0].path); // delete local after upload
+}
 
-    if (req.files?.resume?.[0]) {
-      profileData.resume = {
-        url: `/uploads/${req.files.resume[0].filename}`,
-        filename: req.files.resume[0].originalname,
-        updatedAt: new Date()
-      }
+    // if (req.files?.resume?.[0]) {
+    //   profileData.resume = {
+    //     url: `/uploads/${req.files.resume[0].filename}`,
+    //     filename: req.files.resume[0].originalname,
+    //     updatedAt: new Date()
+    //   }
+    // }
+       if (req.files?.resume?.[0]) {
+  const result = await cloudinary.uploader.upload(
+    req.files.resume[0].path,
+    {
+      folder: 'portfolio_resumes',
+      resource_type: 'raw',
+      access_mode: "public"  ,
+        type: "upload", // for PDFs
     }
+  );
+  profileData.resume = {
+    url: result.secure_url,
+    filename: req.files.resume[0].originalname,
+    updatedAt: new Date(),
+  };
+  fs.unlinkSync(req.files.resume[0].path); // clean up local file
+}
+
 
     const profile = await profileModel.findOneAndUpdate({}, profileData, { new: true })
 
@@ -106,29 +158,50 @@ export const deleteProfile = async (req, res) => {
   }
 }
 
+// export const downloadResume = async (req, res) => {
+//   try {
+//     const profile = await profileModel.findOne()
+
+//     if (!profile?.resume?.url) {
+//       return res.status(404).json({ success: false, message: "Resume not found" })
+//     }
+
+//     const filePath = path.join(process.cwd(), profile.resume.url)
+
+//     if (!fs.existsSync(filePath)) {
+//       return res.status(404).json({ success: false, message: "File not found" })
+//     }
+
+//     res.setHeader('Content-Type', 'application/pdf')
+//     res.setHeader('Content-Disposition', `attachment; filename="${profile.resume.filename || 'resume.pdf'}"`)
+
+//     fs.createReadStream(filePath).pipe(res)
+
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: error.message })
+//   }
+// }
 export const downloadResume = async (req, res) => {
   try {
-    const profile = await profileModel.findOne()
+    const profile = await profileModel.findOne();
 
-    if (!profile?.resume?.url) {
-      return res.status(404).json({ success: false, message: "Resume not found" })
+    if (!profile || !profile.resume?.url) {
+      return res.status(404).json({
+        success: false,
+        message: "Resume not found",
+      });
     }
 
-    const filePath = path.join(process.cwd(), profile.resume.url)
-
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ success: false, message: "File not found" })
-    }
-
-    res.setHeader('Content-Type', 'application/pdf')
-    res.setHeader('Content-Disposition', `attachment; filename="${profile.resume.filename || 'resume.pdf'}"`)
-
-    fs.createReadStream(filePath).pipe(res)
+    // Redirect user to Cloudinary file URL
+    return res.redirect(profile.resume.url);
 
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message })
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
-}
+};
 
 export const getProfileController = async (req, res) => {
   try {

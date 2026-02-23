@@ -10,6 +10,7 @@ import connectCloudinary from "./config/cloudinary.js";
 import { skillsRouter } from "./routes/skill.js";
 import { profileRouter } from "./routes/profile.js";
 import contactRouter from "./routes/contact.js";
+import cors from "cors";
 
 configDotenv()
 
@@ -20,7 +21,7 @@ const __dirname = path.dirname(__filename)
 const app=express();
 
 connectDB();
-connectCloudinary();
+//connectCloudinary();
 
 
 const port=process.env.PORT || 3000;
@@ -29,6 +30,10 @@ const port=process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  credentials: true
+}))
 
 app.use("/api/auth",authRouter)
 app.use("/api/projects",projectsRouter)

@@ -14,6 +14,10 @@ const loginController = (req, res) => {
             message:validationResult.error.errors
         })
     }
+    console.log(email,password);
+    console.log(process.env.ADMIN_EMAIL,process.env.ADMIN_PASSWORD);
+    
+    
     if(process.env.ADMIN_EMAIL!=email || process.env.ADMIN_PASSWORD!=password){
         return res.status(401).json({
             message:"Invalid credentials"
