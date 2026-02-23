@@ -105,7 +105,7 @@ const Navbar = () => {
                 {link.name}
               </a>
             ))}
-            <a href="/admin/login" className="block text-gray-500 text-sm py-2">
+            <a href={import.meta.env.VITE_API_URL + "/admin/login"} className="block text-gray-500 text-sm py-2">
               Admin
             </a>
           </div>
