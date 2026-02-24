@@ -56,8 +56,10 @@ const Navbar = () => {
     </a>
   ))}
   {/* Admin Link - visible now */}
+
+  
   <a 
-    href={import.meta.env.VITE_API_URL+"/admin/login"} 
+    href={"https://my-portfolio-git-main-anshulkumar-codes-projects.vercel.app/admin/login"} 
     className="text-xs text-gray-500 hover:text-accent transition-colors px-2 py-1 border border-transparent hover:border-primary-border rounded"
   >
     Admin
@@ -105,7 +107,7 @@ const Navbar = () => {
                 {link.name}
               </a>
             ))}
-            <a href={import.meta.env.VITE_API_URL + "/admin/login"} className="block text-gray-500 text-sm py-2">
+            <a href={"https://my-portfolio-git-main-anshulkumar-codes-projects.vercel.app/admin/login"} className="block text-gray-500 text-sm py-2">
               Admin
             </a>
           </div>
