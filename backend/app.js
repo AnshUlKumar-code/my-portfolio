@@ -29,10 +29,11 @@ const port=process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
-app.use(cors({
-  origin:  'https://my-portfolio-nine-xi-78.vercel.app',
-  credentials: true
-}))
+// app.use(cors({
+//   origin:  'https://my-portfolio-nine-xi-78.vercel.app',
+//   credentials: true
+// }))
+app.use(cors())
 
 app.use("/api/auth",authRouter)
 app.use("/api/projects",projectsRouter)
