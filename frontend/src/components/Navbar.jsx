@@ -57,7 +57,7 @@ const Navbar = () => {
   ))}
   {/* Admin Link - visible now */}
   <a 
-    href="/admin/login" 
+    href={`${import.meta.env.VITE_API_URL}/admin/login`} 
     className="text-xs text-gray-500 hover:text-accent transition-colors px-2 py-1 border border-transparent hover:border-primary-border rounded"
   >
     Admin
