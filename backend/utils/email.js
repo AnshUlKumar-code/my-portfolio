@@ -1,32 +1,61 @@
-// utils/email.js
-import nodemailer from 'nodemailer'
+// // utils/email.js
+// import nodemailer from 'nodemailer'
 
-const transporter = nodemailer.createTransport({
+// const transporter = nodemailer.createTransport({
   
-   host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-})
+//    host: "smtp.gmail.com",
+//   port: 587,
+//   secure: false,
+//   auth: {
+//     user: process.env.EMAIL_USER,
+//     pass: process.env.EMAIL_PASS
+//   }
+// })
+
+// export const sendContactEmail = async ({ name, email, subject, message }) => {
+
+//     console.log(process.env.EMAIL_USER, process.env.EMAIL_PASS);
+    
+//   await transporter.sendMail({
+//     from: process.env.EMAIL_USER,
+//     to: process.env.ADMIN_EMAIL,
+//     replyTo: email,
+//     subject: subject,
+//     html: `
+//       <h2>New Contact Message</h2>
+//       <p><strong>Name:</strong> ${name}</p>
+//       <p><strong>Email:</strong> ${email}</p>
+//       <p><strong>Message:</strong></p>
+//       <p>${message}</p>
+//     `
+//   })
+// }
+
+// utils/email.js
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendContactEmail = async ({ name, email, subject, message }) => {
+  try {
+    console.log("Using Resend API Key:", process.env.RESEND_API_KEY);
 
-    console.log(process.env.EMAIL_USER, process.env.EMAIL_PASS);
-    
-  await transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to: process.env.ADMIN_EMAIL,
-    replyTo: email,
-    subject: subject,
-    html: `
-      <h2>New Contact Message</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Message:</strong></p>
-      <p>${message}</p>
-    `
-  })
-}
+    await resend.emails.send({
+      from: "onboarding@resend.dev", // works for testing
+      to: process.env.ADMIN_EMAIL,
+      reply_to: email,
+      subject: subject,
+      html: `
+        <h2>New Contact Message</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+      `
+    });
+
+  } catch (error) {
+    console.error("Resend error:", error);
+    throw error;
+  }
+};
