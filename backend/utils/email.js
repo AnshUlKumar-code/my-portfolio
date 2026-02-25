@@ -33,12 +33,13 @@
 
 // utils/email.js
 import { Resend } from "resend";
+RESEND_API_KEY="re_N8PotEfL_AFsQb7VycGXvuW1EG2nMHwpG"
+const resend = new Resend(RESEND_API_KEY);
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendContactEmail = async ({ name, email, subject, message }) => {
   try {
-    console.log("Using Resend API Key:", process.env.RESEND_API_KEY);
+    console.log("Using Resend API Key:", RESEND_API_KEY);
 
     await resend.emails.send({
       from: "onboarding@resend.dev", // works for testing
